@@ -3,14 +3,20 @@ server:
 
 spring:
   r2dbc:
-    url: r2dbc:postgresql://ep-tiny-darkness-a5e80hx8-pooler.us-east-2.aws.neon.tech/sql?sslmode=require
+    url: r2dbc:postgresql://ep-tiny-darkness-a5e80hx8-pooler.us-east-2.aws.neon.tech/sql?sslmode=require&options=endpoint%3Dep-tiny-darkness-a5e80hx8
     username: neondb_owner
     password: npg_GXKU3o9HgipY
+    pool:
+      initial-size: 5
+      max-size: 20
+      max-idle-time: 1800
   sql:
     init:
-      mode: always # Crea la tabla automáticamente al iniciar
-      schema-locations: classpath:schema.sql # Archivo con la estructura de la tabla
-      data-locations: classpath:data.sql # Archivo con datos iniciales (opcional)
-  logging:
-    level:
-      org.springframework.r2dbc: DEBUG
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+      separator: ;
+
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG
